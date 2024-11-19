@@ -12,6 +12,7 @@ public class SimuladorIMC {
         }
     }
 
+    // Callback para notificar el resultado del cálculo
     interface Callback {
         void cuandoEsteCalculadoElIMC(double imc);
         void cuandoHayaErrorDeAlturaInferiorAlMinimo(double alturaMinima);
@@ -20,6 +21,7 @@ public class SimuladorIMC {
         void cuandoFinaliceElCalculo();
     }
 
+    // Simulación de cálculo de IMC
     public void calcular(Solicitud solicitud, Callback callback) {
         callback.cuandoEmpieceElCalculo();
 
@@ -27,9 +29,9 @@ public class SimuladorIMC {
         int pesoMinimo = 0;
 
         try {
-            Thread.sleep(2500);  // long run operation
-            alturaMinima = 0;
-            pesoMinimo = 0;
+            Thread.sleep(2500);  // Simulación de tiempo de cálculo
+            alturaMinima = 110;
+            pesoMinimo = 30;
         } catch (InterruptedException e) {}
 
         boolean error = false;
@@ -46,7 +48,7 @@ public class SimuladorIMC {
         if(!error) {
             callback.cuandoEsteCalculadoElIMC(solicitud.peso / Math.pow((solicitud.altura/100), 2));
         }
-        callback.cuandoFinaliceElCalculo();
+        callback.cuandoFinaliceElCalculo(); // Notificar finalización del cálculo
     }
 }
 

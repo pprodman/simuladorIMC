@@ -20,7 +20,7 @@ public class IMCFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return (binding = FragmentMiImcBinding.inflate(inflater, container, false)).getRoot();
     }
 
@@ -28,9 +28,10 @@ public class IMCFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Obtener el ViewModel
         final IMCViewModel IMCViewModel = new ViewModelProvider(this).get(IMCViewModel.class);
 
-        // Calcular cuota mensual cuando se pulse el botón
+        // Calcular IMC al hacer clic en el botón
         binding.calcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,6 +43,7 @@ public class IMCFragment extends Fragment {
             }
         });
 
+        // Observar los cambios en el IMC del ViewModel
         IMCViewModel.imc.observe(getViewLifecycleOwner(), new Observer<Double>() {
             @Override
             public void onChanged(Double imc) {
@@ -57,6 +59,7 @@ public class IMCFragment extends Fragment {
             }
         });
 
+        // Observar los cambios en los errores de altura  del ViewModel
         IMCViewModel.errorAltura.observe(getViewLifecycleOwner(), new Observer<Double>() {
             @Override
             public void onChanged(Double alturaMinima) {
@@ -68,6 +71,7 @@ public class IMCFragment extends Fragment {
             }
         });
 
+        // Observar los cambios en los errores de peso del ViewModel
         IMCViewModel.errorPeso.observe(getViewLifecycleOwner(), new Observer<Double>() {
             @Override
             public void onChanged(Double pesoMinimo) {
@@ -79,6 +83,7 @@ public class IMCFragment extends Fragment {
             }
         });
 
+        // Observar los cambios en el estado de calculando del ViewModel
         IMCViewModel.calculando.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean calculando) {
